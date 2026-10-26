@@ -1,0 +1,19 @@
+# Maven build targets
+**/target/
+!**/.mvn/wrapper/maven-wrapper.jar
+
+# IntelliJ IDEA & Eclipse IDE artifacts
+**/.idea/
+**/*.iml
+**/*.iws
+**/*.ipr
+**/.classpath
+**/.project
+**/.settings/
+**/.apt_generated/
+**/.factorypath
+
+# OS & Logs
+**/*.log
+.DS_Store
+Thumbs.db

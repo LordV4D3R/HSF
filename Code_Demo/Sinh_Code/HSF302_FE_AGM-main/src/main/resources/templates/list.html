@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Artifact Management</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
+</head>
+<body>
+<div class="container mt-4">
+    <div th:if="${successMessage}" class="alert alert-success text-center" role="alert" th:text="${successMessage}">
+        Deleted successfully
+    </div>
+    <div th:if="${errorMessage}" class="alert alert-danger text-center" role="alert" th:text="${errorMessage}">
+        Cannot delete an active artifact.
+    </div>
+    <div class="border p-4 mt-3 rounded">
+        <h3>Artifact Management</h3>
+        <hr>
+        <form th:action="@{/list}" method="get">
+            <div class="row mt-4 mb-3 align-items-center">
+                <div class="col-auto">
+                    <label for="artifactName" class="col-form-label fw-bold">Artifact Name:</label>
+                </div>
+                <div class="col-auto">
+                    <input type="text" id="artifactName" name="searchName" th:value="${searchName}" class="form-control"
+                           placeholder="Enter artifact name..." style="width: 250px;">
+                </div>
+                <div class="col-auto">
+                    <button type="submit" class="btn btn-primary" style="background-color: #1a56b6;">Search</button>
+                </div>
+                <div class="col text-end">
+                    <a th:href="@{/add}" class="btn btn-light border" style="background-color: #e9ecef;">Add New</a>
+                </div>
+            </div>
+        </form>
+        <table class="table table-bordered align-middle" th:if="${!#lists.isEmpty(artifacts)}">
+            <thead class="table-light">
+            <tr>
+                <th class="fw-bold" style="background-color: #f2f2f2;">Code</th>
+                <th class="fw-bold" style="background-color: #f2f2f2;">Artifact Name</th>
+                <th class="fw-bold" style="background-color: #f2f2f2;">Category</th>
+                <th class="fw-bold" style="background-color: #f2f2f2;">Estimated Value ($)</th>
+                <th class="fw-bold" style="background-color: #f2f2f2;">Acquisition Date</th>
+                <th class="fw-bold" style="background-color: #f2f2f2;">Status</th>
+                <th class="fw-bold" style="background-color: #f2f2f2;">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="art : ${artifacts}">
+                <td th:text="${art.artifactCode}">ART101</td>
+                <td th:text="${art.artifactName}">Ming Dynasty Vase</td>
+                <td th:text="${art.category.categoryName}">Ceramics</td>
+                <td th:text="${art.estimatedValue}">500</td>
+                <td th:text="${#temporals.format(art.acquisitionDate, 'dd/MM/yyyy')}">15/05/2026</td>
+                <td th:text="${art.status == 'AC' ? 'Active' : (art.status == 'IN' ? 'Inactive' : (art.status == 'DR' ? 'Draft' : art.status))}">
+                    Active
+                </td>
+                <td>
+                    <a th:href="@{/view(id=${art.id})}">View</a> |
+                    <a href="#" data-bs-toggle="modal" th:data-bs-target="'#deleteModal' + ${art.id}">Delete</a>
+                    <div class="modal fade" th:id="'deleteModal' + ${art.id}" tabindex="-1"
+                         aria-labelledby="deleteModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content text-center p-3">
+                                <div class="modal-body">
+                                    <h5 class="mb-4">Confirmation</h5>
+                                    <p>Are you sure you want to delete "<span th:text="${art.artifactName}"></span>"?
+                                    </p>
+                                    <form th:action="@{/delete}" method="post">
+                                        <input type="hidden" name="id" th:value="${art.id}"/>
+                                        <button type="submit" class="btn btn-primary px-4">Yes</button>
+                                        <button type="button" class="btn btn-light border px-4" data-bs-dismiss="modal">
+                                            No
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div th:if="${#lists.isEmpty(artifacts)}" class="text-center mt-4 mb-4">
+            <h5 class="text-danger">No artifacts found</h5>
+        </div>
+    </div>
+</div>
+</body>
+<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+</html>

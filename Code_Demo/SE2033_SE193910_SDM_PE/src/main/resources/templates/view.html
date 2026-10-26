@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>View Device Details</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
+</head>
+<body>
+<div class="container border p-4 mt-5 rounded" style="max-width: 900px;">
+    <h4><b>View Device Details</b></h4>
+    <hr class="mb-4">
+
+    <div class="row mb-4">
+        <div class="col-md-6 d-flex">
+            <div class="fw-bold" style="width: 160px;">Device Code:</div>
+            <div th:text="${device.deviceCode}">DVC101</div>
+        </div>
+        <div class="col-md-6 d-flex">
+            <div class="fw-bold" style="width: 180px;">Category:</div>
+            <div th:text="${device.category.categoryName}">Lighting</div>
+        </div>
+    </div>
+
+    <div class="row mb-4">
+        <div class="col-md-6 d-flex">
+            <div class="fw-bold" style="width: 160px;">Device Name:</div>
+            <div th:text="${device.deviceName}">Smart Bulb A1</div>
+        </div>
+        <div class="col-md-6 d-flex">
+            <div class="fw-bold" style="width: 180px;">Price ($):</div>
+            <div th:text="${device.price}">500</div>
+        </div>
+    </div>
+
+    <div class="row mb-4">
+        <div class="col-md-6 d-flex">
+            <div class="fw-bold" style="width: 160px;">Warranty (months):</div>
+            <div th:text="${device.warrantyMonths}">10</div>
+        </div>
+        <div class="col-md-6 d-flex">
+            <div class="fw-bold" style="width: 180px;">Installation Date:</div>
+            <div th:text="${#temporals.format(device.installationDate, 'dd/MM/yyyy')}">15/05/2026</div>
+        </div>
+    </div>
+
+    <div class="row mb-5">
+        <div class="col-md-6 d-flex">
+            <div class="fw-bold" style="width: 160px;">Status:</div>
+            <div th:text="${device.status == 'AC' ? 'Active' : (device.status == 'IN' ? 'Inactive' : (device.status == 'DR' ? 'Draft' : device.status))}">
+                Active
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col text-center mt-3 mb-2">
+            <a th:href="@{/list}" class="btn btn-light border px-4" style="background-color: #e9ecef;">Back</a>
+        </div>
+    </div>
+</div>
+<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>

@@ -1,0 +1,15 @@
+# Obsidian specific
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
+
+# OS & Temp
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# IDE & Build
+.idea/
+.vscode/
+target/
+*.class
+*.log

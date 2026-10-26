@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>View Artifact Details</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
+</head>
+<body>
+<div class="container border p-4 mt-5 rounded" style="max-width: 900px;">
+    <h4><b>View Artifact Details</b></h4>
+    <hr class="mb-4">
+    <div class="row mb-4">
+        <div class="col-md-6 d-flex">
+            <div class="fw-bold" style="width: 140px;">Artifact Code:</div>
+            <div th:text="${artifact.artifactCode}">ART101</div>
+        </div>
+        <div class="col-md-6 d-flex">
+            <div class="fw-bold" style="width: 180px;">Category:</div>
+            <div th:text="${artifact.category.categoryName}">Ceramics</div>
+        </div>
+    </div>
+    <div class="row mb-4">
+        <div class="col-md-6 d-flex">
+            <div class="fw-bold" style="width: 140px;">Artifact Name:</div>
+            <div th:text="${artifact.artifactName}">Ming Dynasty Vase</div>
+        </div>
+        <div class="col-md-6 d-flex">
+            <div class="fw-bold" style="width: 180px;">Estimated Value ($):</div>
+            <div th:text="${artifact.estimatedValue}">500</div>
+        </div>
+    </div>
+
+    <div class="row mb-4">
+        <div class="col-md-6 d-flex">
+            <div class="fw-bold" style="width: 140px;">Age (years):</div>
+            <div th:text="${artifact.ageYears}">10</div>
+        </div>
+        <div class="col-md-6 d-flex">
+            <div class="fw-bold" style="width: 180px;">Acquisition Date:</div>
+            <div th:text="${#temporals.format(artifact.acquisitionDate, 'dd/MM/yyyy')}">15/05/2026</div>
+        </div>
+    </div>
+    <div class="row mb-5">
+        <div class="col-md-6 d-flex">
+            <div class="fw-bold" style="width: 140px;">Status:</div>
+            <div th:text="${artifact.status == 'AC' ? 'Active' : (artifact.status == 'IN' ? 'Inactive' : (artifact.status == 'DR' ? 'Draft' : artifact.status))}">
+                Active
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col text-center mt-3 mb-2">
+            <a th:href="@{/list}" class="btn btn-light border px-4" style="background-color: #e9ecef;">Back</a>
+        </div>
+    </div>
+</div>
+</body>
+<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+</html>
